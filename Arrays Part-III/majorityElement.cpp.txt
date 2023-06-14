@@ -1,0 +1,28 @@
+
+int findMajorityElement(int nums[], int n) {
+	// Write your code here.
+	int cnt = 1, val = nums[0];
+	for(int i = 1; i < n; i++){
+		if(nums[i] != val){
+			if(cnt == 0){
+				val = nums[i];
+				cnt = 1;
+			}
+			else
+				cnt --;
+		}
+		else{
+			cnt++;
+		}
+	}
+	int thres = floor(n/2);
+	// if(cnt != 0){
+	int ans = 0;
+	for(int i = 0; i < n; i++)
+		if(nums[i] == val) ans++;
+	if(ans > thres)
+		return val;
+		// return -1;
+	// }
+	return -1;
+} 
