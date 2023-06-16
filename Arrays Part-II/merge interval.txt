@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& iv) {
+        sort(iv.begin(), iv.end());
+        vector<vector<int>>ans;
+        ans.push_back(iv[0]);
+        int k = 1;
+        for(int i = 1; i < iv.size(); i++){
+            if(iv[i][0] <=  ans[k-1][1]){
+                ans[k-1][1] = max(ans[k-1][1], iv[i][1]);
+            }
+            else{
+                ans.push_back(iv[i]);
+                k++;
+            }
+        } 
+        return ans;
+    }
+};
