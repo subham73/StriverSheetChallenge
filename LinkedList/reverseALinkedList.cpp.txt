@@ -1,0 +1,23 @@
+//iteration 
+ListNode* reverseList(ListNode* head) {
+        ListNode* newHead = nullptr;
+        while(head != nullptr){
+            ListNode *nextN = head->next;
+            head->next = newHead;
+            newHead = head;
+            head = nextN;
+        }
+        return newHead;
+    }
+
+//recursive
+LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head) 
+{
+    // Write your code here
+    //base case
+    if(head == nullptr || head->next == nullptr) return head;
+    LinkedListNode<int> *n_head = reverseLinkedList(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+    return  n_head;
+}
