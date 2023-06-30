@@ -1,0 +1,43 @@
+//recursion
+Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
+{
+    // Write your code here.
+    if (first == nullptr) return second;
+    else if (second == nullptr) return first;
+    else{
+        if(first->data  <= second->data){
+            first-> next = sortTwoLists(first->next, second);
+            return first;
+        }
+        else{
+            second-> next = sortTwoLists(first, second->next);
+            return second;
+        }  
+    }
+    return nullptr;
+}
+
+//iteration
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == nullptr) return l2; 
+        if(l2 == nullptr) return l1;
+
+        if(l1->val > l2->val) return mergeTwoLists(l2, l1);
+
+        ListNode *head = l1;
+        while(l1 != nullptr && l2 != nullptr){
+            ListNode *tmp;
+            while(l1 != nullptr &&  l1->val <= l2->val){
+                tmp = l1;
+                l1 =  l1->next;
+            }
+            tmp ->next = l2;
+            l2 =  l1;
+            l1 = tmp->next;
+        }
+        if(l1 == nullptr) l1 = l2;
+        return head;
+    }
+};
