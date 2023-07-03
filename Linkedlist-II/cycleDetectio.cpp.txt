@@ -1,0 +1,30 @@
+//bruteforce
+bool detectCycle(Node *head)
+{
+	//	Write your code here
+    unordered_set<int>st;
+    while(head!= nullptr){
+        if(st.find(head->data) == st.end()){
+            st.insert(head->data);
+            head = head->next;
+        }
+        else return true;
+
+    }
+    return false;
+    
+}
+
+//two pointer
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode *fast = head, *slow = head;
+        if(head == nullptr) return false;
+        while(fast->next != nullptr && fast->next->next != nullptr){
+            fast = fast->next->next;
+            slow = slow->next;
+            if(fast == slow) return true;
+        }
+        return false;
+    }
+};
