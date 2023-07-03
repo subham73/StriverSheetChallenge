@@ -1,0 +1,44 @@
+//1
+
+int dist(Node *f, Node* s){
+    int d1 = 0, d2 = 0;
+    while(f!= nullptr){
+        f = f->next;
+        d1++;
+    }
+    while(s!= nullptr){
+        s = s->next;
+        d2++;
+    }
+     return d1- d2;   
+
+}
+Node* findIntersection(Node *f, Node *s)
+{
+
+    //Write your code here
+    int diff_dist = dist(f, s);
+    if(diff_dist < 0){
+        for(int i = 0; i < (-diff_dist); i++)
+            s = s->next;
+    }
+    else{
+        for(int i = 0; i < diff_dist; i++)
+            f = f->next;
+    }
+    while(f != s){
+        f = f->next;
+        s = s->next;
+    }
+    return f;
+}
+
+//2
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *h1 = headA, *h2= headB;
+        while(h1 != h2){
+            h1 = (h1 == nullptr) ? headB: h1->next;
+            h2 = (h2 == nullptr) ? headA: h2->next;
+        }
+        return h1;
+    }
