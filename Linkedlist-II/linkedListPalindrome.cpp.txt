@@ -1,0 +1,29 @@
+ListNode *reverse(ListNode* head){
+        if(head && head->next ==nullptr ) return head;
+        ListNode *nNode = reverse(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return nNode;
+    }
+    bool isPalindrome(ListNode* head) {
+        //go till middle element
+        //from start to the middle we will check same or not 
+        if(head == nullptr || head->next == nullptr) return true;
+        ListNode *fast = head, *slow= head;
+
+        while(fast->next != nullptr && fast->next->next != nullptr){
+            fast = fast->next->next;
+            slow = slow->next;
+            // mid++;
+        }
+        slow = slow->next;
+        slow = reverse(slow);
+
+        ListNode *dummy = head;
+        while(slow != nullptr){
+            if(dummy->val != slow->val) return false;
+            dummy = dummy->next;
+            slow = slow->next;
+        }
+        return true;
+    }
