@@ -1,0 +1,33 @@
+//coding Ninjas
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+	// Write your code here.
+	if(head == nullptr || head->next == nullptr) return head;
+	Node *tr = head;
+	int size = 0;
+	while(tr != nullptr){
+		tr = tr->next;
+		size++;
+	}
+	
+	Node *dummy = new Node(0);
+	dummy->next = head;
+	Node *pre = dummy;
+	Node *cur, *nex;
+	
+	for(int k = 0; k < n; k++){
+		if(size <= 0) break; // edge for no size
+		if(b[k] == 0) continue; // edge for 0 block
+		if(size < b[k]) b[k] = size ; // edge for block > size
+		cur = pre->next;
+		nex = cur->next;
+		for(int i = 1; i< b[k]; i++){
+			cur->next = nex->next;
+			nex->next = pre->next;
+			pre->next = nex;
+			nex = cur->next;
+		}
+		pre = cur;
+		size -= b[k];
+	}
+	return dummy->next;
+}
