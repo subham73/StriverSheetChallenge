@@ -1,0 +1,32 @@
+Node *merge(Node *a, Node *b){
+    Node *dummy = new Node(0);
+    Node *res = dummy;
+    
+    while(a != nullptr && b != nullptr){
+        if(a->data <= b->data){
+            dummy->bottom = a;
+            dummy = dummy->bottom;
+            a = a->bottom;
+        }
+        else{
+            dummy->data = b->data;
+            dummy = dummy->bottom;
+            b = b->bottom;
+        }
+    }
+    if(a) dummy->bottom = a;
+    else dummy->bottom = b;
+    return res->bottom;
+}
+
+Node *flatten(Node *root)
+{
+   // Your code here
+   //base case
+   if(root == nullptr || root->next == nullptr) return root;
+   
+   root->next = flatten(root->next);
+   root  = merge(root, root->next);
+   return root;
+}
+
