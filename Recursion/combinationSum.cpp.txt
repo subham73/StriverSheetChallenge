@@ -1,0 +1,28 @@
+class Solution {
+public:     
+
+    void subset(vector<int>cand, int k, int i, set<vector<int>>&ans, vector<int>ar){
+        if(k == 0){
+            ans.insert(ar);
+            return;
+        }
+        for(int j = i; j < cand.size(); j++){
+            if(cand[j] > k) break;
+            
+            ar.push_back(cand[j]);
+            subset(cand, k-cand[j], j, ans, ar);
+            ar.pop_back();
+        }
+        
+    }
+    vector<vector<int>> combinationSum(vector<int>& cand, int k) {
+        sort(cand.begin(), cand.end());
+        set<vector<int>>st;
+        subset(cand, k, 0, st, {});
+        vector<vector<int>>ans;
+        for(auto el: st)
+            ans.push_back(el);
+        return ans;
+
+    }
+};

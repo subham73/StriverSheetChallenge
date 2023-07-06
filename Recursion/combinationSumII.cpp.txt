@@ -1,0 +1,56 @@
+//just recursive
+
+#include<bits/stdc++.h>
+void f(vector<int>& cand, int k, int i ,vector<int>cur, vector<vector<int>>&ans){
+        if(k == 0) {
+            ans.push_back(cur);
+            return;
+        }
+        if(i >= cand.size()) return;
+        for(int j = i; j < cand.size(); j++){
+            if(cand[j] > k) break;
+            cur.push_back(cand[j]);
+            f(cand, k-cand[j], j+1, cur, ans);
+            while(j+1 < cand.size()&&cand[j]==cand[j+1]){
+                j++;
+            }
+            cur.pop_back();
+        }
+
+    }
+vector<vector<int>> combinationSum2(vector<int> &cand, int n, int k){
+	// Write your code here.
+	vector<vector<int>>ans;
+	sort(cand.begin(), cand.end());
+	f(cand, k, 0, {}, ans);
+	return ans;
+}
+
+
+
+//optimized 
+#include<bits/stdc++.h>
+void f(vector<int>& cand, int k, int i ,vector<int>cur, vector<vector<int>>&ans){
+        if(k == 0) {
+            ans.push_back(cur);
+            return;
+        }
+        if(i >= cand.size()) return;
+        for(int j = i; j < cand.size(); j++){
+            if(cand[j] > k) break;
+            cur.push_back(cand[j]);
+            f(cand, k-cand[j], j+1, cur, ans);
+            while(j+1 < cand.size()&&cand[j]==cand[j+1]){
+                j++;
+            }
+            cur.pop_back();
+        }
+
+    }
+vector<vector<int>> combinationSum2(vector<int> &cand, int n, int k){
+	// Write your code here.
+	vector<vector<int>>ans;
+	sort(cand.begin(), cand.end());
+	f(cand, k, 0, {}, ans);
+	return ans;
+}
