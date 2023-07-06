@@ -1,0 +1,21 @@
+public:
+    void subset(vector<int> arr, int N, int i, vector<int>&ans, int sum = 0){
+        //base case
+        if(i == N){
+            ans.push_back(sum);
+            return ;
+        }
+        //if not taken
+        subset(arr, N, i+1, ans, sum);
+        //if taken
+        subset(arr, N, i+1, ans, sum+arr[i]);
+    }
+    
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int>ans;
+        subset(arr, N, 0, ans, 0);
+        return ans;
+    }
+};
