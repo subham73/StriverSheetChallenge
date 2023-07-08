@@ -1,0 +1,50 @@
+//recursive
+class Solution {
+public:
+    void permute(int n, int i, string &s, vector<string>&ans){
+        if(i >= n){
+            ans.push_back(s);
+            return;
+        }
+        for(int j = i; j < n; j++){
+            swap(s[i], s[j]);
+            permute(n, i+1, s, ans);
+            swap(s[i], s[j]);
+        }
+
+    }
+    string getPermutation(int n, int k) {
+        string s = "";
+        for(int i = 1; i <= n; i++)
+            s += to_string(i);
+        vector<string>ans;
+        permute(n, 0, s, ans);
+        sort(ans.begin(), ans.end());
+        return ans[k-1];
+    }
+};
+
+//optimized
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        string ans = "";
+        int fact = 1;
+        vector<int>nums;
+        for(int i = 1; i <= n; i++){
+            fact *= i;
+            nums.push_back(i);
+        }
+        fact = fact/ n;
+        k = k-1;
+        while(true){
+            int pos = k/fact;
+            ans = ans+ to_string(nums[pos]);
+            nums.erase(nums.begin()+pos);
+            if(nums.size() == 0) break;
+            k = k%fact;
+            fact = fact/ nums.size();
+        }
+        return ans; 
+    }
+};
