@@ -1,0 +1,30 @@
+from functools import cmp_to_key
+
+def maximumMeetings(start, end):
+    # Write your Code here.
+    class Meeting:
+        def __init__(self,start,end,pos):
+            self.start=start
+            self.end=end
+            self.pos=pos
+        def comparator(a,b):
+            if a.end<b.end:
+                return -1
+            elif a.end>b.end:
+                return 1
+            elif a.pos<b.pos:
+                return -1
+            return 1
+    meetList=[]
+    for i,(s,e) in enumerate(zip(start,end)):
+        meetList.append(Meeting(s,e,i+1))
+    meetList=sorted(meetList,key=cmp_to_key(Meeting.comparator))
+    ans=[]
+    ans.append(meetList[0].pos)
+    time=meetList[0].end
+    for i in range(1,len(start)):
+        if (meetList[i].start>time):
+            ans.append(meetList[i].pos)
+            time=meetList[i].end
+    
+    return ans
