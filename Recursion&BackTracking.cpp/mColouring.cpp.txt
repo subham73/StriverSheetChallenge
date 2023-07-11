@@ -1,0 +1,34 @@
+bool isValid(vector<vector<int>> graph, int n, vector<int>colour, int node, int cl){
+    for(int i = 0; i < n; i++){
+        if(i != node  && graph[node][i] && colour[i] == cl)
+            return false;
+    } 
+    return  true;
+}
+bool solver(vector<vector<int>> graph, int m, int n, int node, vector<int>colour){
+    // base 
+    if(node == n){
+        return true;
+    }
+    
+    for(int i = 0; i < m; i++){
+        if(isValid(graph, n, colour, node, i)){
+            colour[node] = i;
+            if(solver(graph, m, n, node+1, colour)) return true;
+            colour[node] = -1;
+        }
+    }
+
+    return false;
+}
+
+
+string graphColoring(vector<vector<int>> &mat, int m) {
+    // Write your code here
+    int n = mat.size();
+    vector<int>colour(n, -1);
+    if (solver(mat, m, n, 0, colour))return "YES";
+    return "NO";
+}
+
+    

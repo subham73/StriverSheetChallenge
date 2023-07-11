@@ -1,0 +1,30 @@
+
+    void dfs(int i, int j, vector<vector<int>> m, string path, int n,
+    vector<string> &ans) {
+        if(i < 0 || i>=n || j< 0 || j>=n) return;
+        
+        if(m[i][j] == 0 || m[i][j] == -1) return;
+        
+        if(i == n-1 && j == n-1 && m[i][j] != 0) {
+            ans.push_back(path);
+            return;
+        }
+        
+        m[i][j] = -1;
+        
+        dfs(i+1, j, m, path + 'D', n, ans);
+        dfs(i, j+1, m, path + 'R', n, ans);
+        dfs(i-1, j, m, path + 'U', n, ans);
+        dfs(i, j-1, m, path + 'L', n, ans);
+        
+        m[i][j] = 1;
+    }
+
+vector<string> ratMaze(vector<vector<int>> &mat) {
+    // Write your code here.
+    int n = mat.size();
+    vector<string> ans;
+    dfs(0, 0, mat,"", n, ans);
+        
+    return ans;
+}
