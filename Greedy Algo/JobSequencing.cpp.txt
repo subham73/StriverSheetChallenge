@@ -1,0 +1,63 @@
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        sort(arr, arr+n, [](Job a, Job b){
+            return a.profit > b.profit;
+        });
+        
+        int maxDead = arr[0].dead;
+        for(int i = 1; i < n; i++){
+            maxDead = max(maxDead, arr[i].dead);
+        }
+        
+        vector<int> last(maxDead+1, -1);
+
+        int tot= 0, cnt = 0;
+        for(int i= 0; i < n; i++){
+            int j = arr[i].dead;
+            while(j > 0){
+                if (last[j] == -1){
+                    last[j]=arr[i].id;
+                    cnt++;
+                    tot += arr[i].profit; 
+                    break;
+                }    
+                else j--;
+            }
+        }
+        return {cnt, tot};
+    } 
+};
+
+//optimized#include<bits/stdc++.h>
+vector<int> jobScheduling(vector<vector<int>> &arr)
+{
+    sort(arr.begin(), arr.end(), [](vector<int> a, vector<int> b){
+            return a[2] > b[2];
+        });
+        int n = arr.size();
+        int maxDead = arr[0][1];
+        for(int i = 1; i < n; i++){
+            maxDead = max(maxDead, arr[i][1]);
+        }
+        
+        set<int, greater<int>>last;
+        for(int i= maxDead; i > 0; i--)
+            last.insert(i);
+
+        int tot= 0, cnt = 0;
+        for(int i= 0; i < n; i++){
+            if(!last.size()) break;
+            int j = arr[i][1];
+            if(j < *last.rbegin()) continue;
+
+            int slot = *last.lower_bound(j);
+                cnt++;
+                tot += arr[i][2];
+                last.erase(slot);
+        }
+        return {cnt, tot};
+}
