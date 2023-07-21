@@ -1,0 +1,53 @@
+
+//queue
+#include<bits/stdc++.h>
+int longestSubSeg(vector<int> &nums , int n, int k){
+    // Write your code here.
+    int stPoint = 0 ; 
+    queue<int>qu;
+    int ans = 0;
+    // if(k == 0){
+    //     int cnt = 0;
+    //     for(int i = 0; i < n; i++){
+    //         if(nums[i] == 1)
+    //             cnt++;
+    //         else
+    //             cnt = 0;
+    //         ans = max(ans , cnt);
+    //     }
+    //     return ans;
+    // }
+    for(int i = 0; i < n; i++){
+        if(nums[i] == 0)
+            qu.push(i);
+
+        if(qu.size() > k){
+            stPoint = qu.front() + 1;
+            qu.pop();
+        }
+        ans = max(ans, i-stPoint+1);
+    }
+    return ans;
+}
+
+//2 pointer
+int longestSubSeg(vector<int> &arr , int n, int k){
+    // Write your code here.
+    int l = 0, r = 0; 
+    int cnt0 = 0, maxL = 0;
+    
+    
+    for(int r = 0; r < n; r++){
+        // if(cnt0 == k) break;
+        if(arr[r] == 0) cnt0++;        
+        
+        while(cnt0 > k){
+            if(arr[l] == 0) cnt0--;
+            l++;
+        }
+        maxL = max(maxL, r-l+1);
+        
+    }
+    return maxL;
+}
+
