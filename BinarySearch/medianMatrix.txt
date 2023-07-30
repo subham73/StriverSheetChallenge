@@ -1,0 +1,28 @@
+    
+int l = INT_MAX, r = INT_MIN;
+    for(int i = 0; i < m; i++){
+        l = min(l, mat[i][0]);
+        r = max(r, mat[i][n-1]);
+    }   
+    auto f = [&](int mid){
+        int cnt = 0;
+        for(int  i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(mat[i][j] <= mid) cnt++;
+                else break;
+            }
+        }
+        return cnt;
+    }; 
+    int midian_t = (n*m+1)/2;
+    int ans;
+    while(l <= r){
+        int mid = (l+r)/2;
+        if (f(mid) >= midian_t) {
+          ans = mid;
+          r = mid-1;
+        }
+        else
+            l = mid+1;
+    }
+    return ans;
