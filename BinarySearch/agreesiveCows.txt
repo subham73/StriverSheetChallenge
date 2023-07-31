@@ -1,0 +1,34 @@
+int aggressiveCows(vector<int> &st, int k)
+{
+    //    Write your code here.
+    int n = st.size();
+    sort(st.begin(), st.end());
+    int l = 1, r = st[n-1]-st[0];
+    // for(int i = 0; i < n-1; i++)
+    //     l = max(st[i+1]- st[i] , l);
+
+    auto f = [&](int dist){
+        int cow = 1;
+        int last = st[0];
+        for(int i = 1; i < n; i++){
+            if(st[i] - last >= dist){
+                cow++;
+                last = st[i];
+            }
+            if(cow >= k) return true;
+        }
+        // if(cow >= k) return true;
+        return false;
+    };
+    int ans = 0;
+    while(l <= r){
+        int dist = (l+r)/2;
+        if(f(dist)){
+            ans = dist;
+            l = dist+1;
+        }
+        else
+            r = dist-1;
+    }
+    return ans;
+}
