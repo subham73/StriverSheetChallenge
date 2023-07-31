@@ -1,0 +1,40 @@
+#include bitsstdc++.h 
+long long ayushGivesNinjatest(int n, int m, vectorint time) 
+{	
+	 Write your code here.
+	int l =  0, r = 0;
+	for(int i = 0; i  m; i++){
+		l  = max(time[i], l);
+		r += time[i];
+	}
+
+	auto f = [&](int n_time){
+		int cnt = 1 ;
+		int cur_t = 0;
+		for(int i = 0; i  m; i++){
+			if(cnt  n) return false;
+			if(cur_t + time[i]  n_time){
+				cnt++;
+				cur_t = time[i];
+			}
+			else{
+				cur_t += time[i];
+			}
+		}
+		if( cnt  n) return false;
+		else true;
+	};
+	int ans  = 0;
+	while( l = r){
+		int n_time = (l+r)2;
+		 cout  l   r   n_time  endl;
+		if(f(n_time)){
+			ans = n_time;
+			r = n_time-1;
+		}
+		else{
+			l = n_time+1;
+		}
+	}
+	return ans;
+}
