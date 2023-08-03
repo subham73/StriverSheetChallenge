@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+int findIndex(vector<int> &inOrder,int element)
+{   
+    for(int i=0;i<inOrder.size();i++)
+    {        
+        if(inOrder[i]==element)           
+        return i;   
+    }    
+    return -1; 
+} 
+TreeNode<int> *f(vector<int> &inOrder, int is, int ie, vector<int> &postOrder,
+                 int ps, int pe) {
+        if(ps > pe || is > ie) return nullptr;
+		
+		TreeNode<int> *root = new TreeNode<int>(postOrder[pe]);
+		int rootInd = findIndex(inOrder, root->data);
+		int numsLeft = rootInd-is;
+
+		root->left = f(inOrder, is, rootInd-1, postOrder, ps, ps+numsLeft-1);
+		root->right = f(inOrder, rootInd+1, ie, postOrder, ps+numsLeft, pe-1);
+		return root;
+}
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postOrder, vector<int>& inOrder) 
+{
+	// Write your code here.
+	// map<int, int>mp;
+	// for(int i = 0; i <inOrder.size(); i++){
+	// 	mp[inOrder[i]] = i;
+	// }
+	return f(inOrder, 0, inOrder.size()-1, postOrder, 0, postOrder.size()-1);
+}

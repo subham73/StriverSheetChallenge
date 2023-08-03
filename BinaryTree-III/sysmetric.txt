@@ -1,0 +1,13 @@
+bool sys(BinaryTreeNode<int>* root1, BinaryTreeNode<int>* root2){
+    if(root1 == nullptr && root2 == nullptr) return true;
+    if(root1 == nullptr && root2 != nullptr ||
+        root1 != nullptr && root2 == nullptr ) return false;
+
+    return (root1->data == root2->data) && 
+    sys(root1->left, root2->right) && sys(root1->right, root2->left);
+}
+
+bool isSymmetric(BinaryTreeNode<int>* root) { 
+    if(!root) return true;
+    return sys(root->left, root->right);
+}
