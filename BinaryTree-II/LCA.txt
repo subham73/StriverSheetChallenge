@@ -1,0 +1,20 @@
+TreeNode<int> * LCA(TreeNode<int> *root, int x, int y)
+{
+	//    Write your code here
+    if(root == nullptr || root->data == x || root->data == y){
+        return root;
+    }
+
+    TreeNode<int> *lh, *rh;
+    lh = LCA(root->left, x, y);
+    rh = LCA(root->right, x, y);
+
+    if(lh == nullptr) return rh;
+    else if( rh == nullptr) return lh;
+    else return root;
+}
+
+int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
+{
+    return LCA(root, x, y)->data;
+}

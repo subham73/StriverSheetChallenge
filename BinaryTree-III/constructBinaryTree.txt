@@ -1,0 +1,22 @@
+TreeNode<int>* build(vector<int>in, vector<int>pre, int inl, int inr, int prel, int prer,
+            unordered_map<int, int>mp){
+    if( inl > inr || prel > prer) return nullptr;
+
+    TreeNode<int> *node = new TreeNode<int>(pre[prel]);
+    int ind = mp[node->data];
+    int n_ele = ind - inl;
+    node->left = build(in, pre, inl, ind-1, prel+1, prel+n_ele, mp);
+    node->right = build(in, pre, ind+1, inr, prel+n_ele+1, prer, mp);
+    return node;
+} 
+
+TreeNode<int> *buildBinaryTree(vector<int> &inorder, vector<int> &preorder)
+{
+	unordered_map<int, int>mp;
+    int inl = 0, inr = inorder.size()-1, prel = 0, prer = preorder.size()-1;
+    for(int i = 0; i < inorder.size(); i++){
+        mp[inorder[i]] = i;
+    }
+    return build(inorder, preorder, inl, inr, prel, prer, mp);
+
+}
