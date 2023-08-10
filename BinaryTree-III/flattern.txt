@@ -1,0 +1,19 @@
+TreeNode<int> *flattenBinaryTree(TreeNode<int> *root)
+{
+    TreeNode<int>*cur = root;
+    TreeNode<int>*head = cur;
+    while(cur){
+        //find right mosdt ele of left subtree
+        if(cur->left){
+            TreeNode<int>*rightM = cur->left;
+            while(rightM->right){
+                rightM = rightM->right;
+            }
+            rightM->right = cur->right;
+            cur->right = cur->left;
+            cur->left = nullptr; 
+        }
+        cur = cur->right;
+    }
+    return head;
+}
