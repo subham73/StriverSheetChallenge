@@ -1,0 +1,15 @@
+typedef TreeNode<int> Node;
+Node *helper (vector<int>arr, int l, int r){
+    if(l > r) return nullptr;
+    int mid  = (l+r)/2;
+    Node *tmp = new Node(arr[mid]);
+    tmp->left = helper(arr, l, mid-1);
+    tmp->right = helper(arr, mid+1, r);
+    return tmp; 
+}
+TreeNode<int>* sortedArrToBST(vector<int> &arr, int n)
+{
+    if(n == 0) return nullptr;
+    // if(n == 1) return new Node(arr[0]);
+    return helper(arr, 0, n-1);
+}
