@@ -1,0 +1,16 @@
+TreeNode *LCAinaBST(TreeNode *root, TreeNode *p, TreeNode *q)
+{
+    // Write your code here.
+    int maxi = max(p->data, q->data);
+    int mini = min(p->data, q->data);
+    while(root != nullptr){
+        if(root->data > maxi){
+            root = root->left;
+        } else if (root->data < mini) {
+            root = root->right;
+        }
+        else 
+            return root;
+    }
+    return nullptr;
+}
