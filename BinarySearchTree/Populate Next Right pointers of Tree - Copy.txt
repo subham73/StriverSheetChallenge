@@ -1,0 +1,27 @@
+##BFS 
+Node* connect(Node* root) {
+        //bsf 
+        //idea is ki root pehlle travel karo n 
+        // rightest ko nllpyr don 
+        // and bnaki sab ko rightM
+        if(!root) return nullptr;
+        //bfs
+        queue<Node*>q;
+        q.push(root);
+        while(!q.empty()){
+            Node* rM = nullptr;
+            for(int i = q.size(); i > 0 ; i--){
+                Node * cur = q.front(); q.pop();
+                cur->next = rM;
+                rM = cur;
+                if(cur->right){//dono zinda hai
+                    q.push(cur->right);
+                    q.push(cur->left);
+                }
+            }
+        }  
+        return root; 
+    }
+
+##DFS
+
