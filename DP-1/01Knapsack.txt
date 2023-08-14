@@ -1,0 +1,29 @@
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+	vector<vector<int>>dp(n+1, vector<int>(w+1, 0));
+	for(int i = 1; i <= n; i++){
+		for(int j = 1; j <= w; j++){
+			dp[i][j] = dp[i-1][j];
+			if(weights[i-1] <= j)
+				dp[i][j]  = max(dp[i-1][j], values[i-1]+dp[i-1][j-weights[i-1]]);
+		}
+	}
+	return dp[n][w];
+}
+
+
+int f(vector<int> &values, vector<int> &weights, int n, int w, vector<vector<int>>&dp){
+	if(n < 0) return 0;
+
+	if(dp[n][w] != -1) return dp[n][w];
+	int v1 = 0, v2 = 0; 
+	if(w >= weights[n])
+		v2 = values[n]+f(values, weights, n-1, w-weights[n], dp);
+	v1 = f(values, weights, n-1, w, dp);
+	return dp[n][w] = max(v1, v2);
+}
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+	vector<vector<int>>dp(n, vector<int>(w+1, -1));
+	return f(values,  weights, n-1, w, dp);
+}
