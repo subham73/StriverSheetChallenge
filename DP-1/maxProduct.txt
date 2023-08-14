@@ -1,0 +1,13 @@
+#include <bits/stdc++.h> 
+int maximumProduct(vector<int> &ar, int n)
+{
+	int p1 = ar[0], p2 = ar[0], res = ar[0];
+    for(int i= 1; i < n; i++){
+      int tmp = max({ar[i], p1 * ar[i], p2 * ar[i]});
+      p2 = min({ar[i], p1 * ar[i], p2 * ar[i]});
+      p1 = tmp;
+
+      res = max(res, p1);
+    }   
+    return res;
+}

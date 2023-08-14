@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+
+int longestIncreasingSubsequence(int arr[], int n)
+{
+    // Write Your Code here
+    vector<int>v;
+    v.push_back(arr[0]);
+    int m = 1;
+    // auto b_search = [&](int X){
+    //     int l = 0,  r = m-1;
+    //     int ans;
+    //     while(l < r){
+    //         int mid = (l+r)/2;
+    //         if(arr[mid] <= X){
+    //             ans = l;
+    //             r = mid-1;
+    //         }
+    //         else
+    //             l = mid+1;
+    //     }
+    //     return ans;
+    // };
+    for(int i = 1; i < n; i++){
+        if(arr[i] > v.back()){
+            v.push_back(arr[i]);
+            m++;
+        }
+        else{
+            int ind = lower_bound(v.begin(), v.end(), arr[i]) - v.begin();
+            v[ind] = arr[i];
+        }
+    }
+    return m;
+}
