@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+
+int f(vector<int> &arr, int N, int l, int r, vector<vector<int>>&dp){
+
+    if(l == r-1) return dp[l][r] = 0;
+    if( dp[l][r] != -1) return dp[l][r];
+    int mini = INT_MAX;
+    for(int i = l+1; i <r; i++){
+        if(dp[l][i] == -1)
+            dp[l][i] = f(arr, N, l, i, dp);
+        if(dp[i][r] == -1)
+            dp[i][r] = f(arr, N, i, r, dp);
+
+        mini = min(mini, dp[l][i]+dp[i][r]+arr[l]*arr[i]*arr[r]);
+    }
+    return dp[l][r] = mini;
+}
+int matrixMultiplication(vector<int> &arr, int N)
+{
+    // Write your code here.
+    vector<vector<int>>dp(N+1,vector<int>(N+1,-1));
+    f(arr, N, 0, N-1, dp);
+    return dp[0][N-1];
+}
