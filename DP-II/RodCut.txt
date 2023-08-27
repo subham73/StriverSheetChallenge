@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+long f(vector<int> &price, int n, vector<int> &dp){
+	if(n == 0) return 0;
+
+	if(dp[n]  != -1) return dp[n]; 
+	long yC = 0;
+	
+	return dp[n] = yC;
+}
+int cutRod(vector<int> &price, int n)
+{
+	vector<int>dp(n+1, 0);
+	dp[0] = 0;
+	for(int i = 1; i <= n; i++){
+		int maxi = INT_MIN;
+		for(int cut = 1; cut <= i; cut++){
+			maxi = max(maxi, price[cut-1]+dp[i-cut]);
+		}
+		dp[i] = maxi;
+	}
+	return dp[n];
+}
+
+
+#include<bits/stdc++.h>
+long f(vector<int> &price, int n, vector<int> &dp){
+	if(n == 0) return 0;
+
+	if(dp[n]  != -1) return dp[n]; 
+	long yC = 0;
+	
+	return dp[n] = yC;
+}
+int cutRod(vector<int> &price, int n)
+{
+	vector<int>dp(n+1, 0);
+	dp[0] = 0;
+	for(int i = 1; i <= n; i++){
+		int maxi = INT_MIN;
+		for(int cut = 1; cut <= i; cut++){
+			maxi = max(maxi, price[cut-1]+dp[i-cut]);
+		}
+		dp[i] = maxi;
+	}
+	return dp[n];
+}

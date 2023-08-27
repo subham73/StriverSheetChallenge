@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+long countWaysToMakeChange(int *de, int n, int value)
+{
+//    vector<vector<long>> dp(n+1, vector<long>(value+1, 0));
+   vector<long>prev(value+1, 0);
+   
+   for(int T = 0; T <= value; T++){
+       if(T%de[0] == 0) 
+            prev[T] = 1;
+   }
+   
+   for(int i = 1; i < n; i++){
+       vector<long>cur(value+1, 0);
+       for(int T = 0; T <= value; T++){
+           long nT = prev[T];
+           long tT = 0;
+           if(de[i] <= T)
+                tT = cur[T-de[i]];
+            cur[T] = nT+ tT;
+       }
+       prev = cur;
+   }
+   return prev[value];
+}
